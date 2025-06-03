@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BasicBook Pro Lite | ComputeZone</title>
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- (Optional) Your custom overrides -->
+  <link rel="stylesheet" href="css/custom.css" />
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- NAVBAR (same as index.html) -->
+  <header class="bg-white shadow-md sticky top-0 z-20">
+    <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+      <a href="index.html" class="text-2xl font-bold text-gray-900">ComputeZone</a>
+      <nav class="hidden md:flex space-x-6 text-gray-700">
+        <a href="index.html#low-performance" class="hover:text-gray-900 transition">Low Performance</a>
+        <a href="index.html#medium-performance" class="hover:text-gray-900 transition">Medium Performance</a>
+        <a href="index.html#high-performance" class="hover:text-gray-900 transition">High Performance</a>
+      </nav>
+      <button id="mobile-menu-btn" class="md:hidden focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+    <div id="mobile-menu" class="md:hidden bg-white border-t border-gray-200 hidden">
+      <div class="flex flex-col px-4 py-3 space-y-2">
+        <a href="index.html#low-performance" class="block py-1 hover:text-gray-900">Low Performance</a>
+        <a href="index.html#medium-performance" class="block py-1 hover:text-gray-900">Medium Performance</a>
+        <a href="index.html#high-performance" class="block py-1 hover:text-gray-900">High Performance</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- BREADCRUMB -->
+  <nav class="container mx-auto px-4 py-4 text-sm text-gray-600">
+    <ul class="flex space-x-2">
+      <li><a href="index.html" class="hover:underline">Home</a></li>
+      <li>›</li>
+      <li><a href="index.html#low-performance" class="hover:underline">Low Performance</a></li>
+      <li>›</li>
+      <li class="font-semibold">BasicBook Pro Lite</li>
+    </ul>
+  </nav>
+
+  <!-- PRODUCT DETAIL MAIN SECTION -->
+  <main class="container mx-auto px-4 py-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+      <!-- Left: Image gallery / main image -->
+      <div class="space-y-4">
+        <!-- Main product image -->
+        <img src="images/low-perf-1.jpg"
+             alt="BasicBook Pro Lite - Main"
+             class="w-full h-auto rounded-lg border border-gray-200 shadow-sm object-cover" />
+
+        <!-- Thumbnail strip -->
+        <div class="flex space-x-2 overflow-x-auto">
+          <img src="images/low-perf-1.jpg"
+               alt="BasicBook Pro Lite - Angle 1"
+               class="w-20 h-20 rounded-lg border border-gray-200 object-cover cursor-pointer hover:opacity-80 transition" />
+          <img src="images/low-perf-1-2.jpg"
+               alt="BasicBook Pro Lite - Angle 2"
+               class="w-20 h-20 rounded-lg border border-gray-200 object-cover cursor-pointer hover:opacity-80 transition" />
+          <img src="images/low-perf-1-3.jpg"
+               alt="BasicBook Pro Lite - Angle 3"
+               class="w-20 h-20 rounded-lg border border-gray-200 object-cover cursor-pointer hover:opacity-80 transition" />
+        </div>
+      </div>
+
+      <!-- Right: Title, price, specs, buy button -->
+      <div class="flex flex-col">
+        <h1 class="text-3xl font-bold text-gray-900">BasicBook Pro Lite</h1>
+        <p class="text-gray-600 mt-2">Intel Celeron • 4 GB RAM • 128 GB SSD</p>
+
+        <!-- Price & Buy Button -->
+        <div class="mt-4 flex items-center space-x-4">
+          <span class="text-2xl font-extrabold text-blue-600">$299</span>
+          <!-- Replace href with your checkout/session endpoint -->
+          <a href="#"
+             class="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
+            Buy Now
+          </a>
+        </div>
+
+        <!-- Short Description -->
+        <p class="mt-6 text-gray-700">
+          The BasicBook Pro Lite is perfect for everyday computing: browse, stream, and edit documents with ease.
+          Its lightweight chassis and battery life make it ideal for students and casual users on a budget.
+        </p>
+
+        <!-- Detailed Specs Table -->
+        <div class="mt-8">
+          <h2 class="text-xl font-semibold text-gray-800 mb-3">Specifications</h2>
+          <table class="w-full border-collapse text-left text-gray-700">
+            <tbody>
+              <tr class="border-t">
+                <th class="px-4 py-2 w-1/3 font-medium">Processor</th>
+                <td class="px-4 py-2">Intel Celeron N4020 (2 Cores / 2 Threads)</td>
+              </tr>
+              <tr class="border-t">
+                <th class="px-4 py-2 font-medium">Memory</th>
+                <td class="px-4 py-2">4 GB DDR4</td>
+              </tr>
+              <tr class="border-t">
+                <th class="px-4 py-2 font-medium">Storage</th>
+                <td class="px-4 py-2">128 GB SSD</td>
+              </tr>
+              <tr class="border-t">
+                <th class="px-4 py-2 font-medium">Display</th>
+                <td class="px-4 py-2">14″ FHD (1920×1080) IPS</td>
+              </tr>
+              <tr class="border-t">
+                <th class="px-4 py-2 font-medium">Graphics</th>
+                <td class="px-4 py-2">Intel UHD Graphics 600</td>
+              </tr>
+              <tr class="border-t">
+                <th class="px-4 py-2 font-medium">Battery</th>
+                <td class="px-4 py-2">Up to 8 hours</td>
+              </tr>
+              <tr class="border-t">
+                <th class="px-4 py-2 font-medium">Ports</th>
+                <td class="px-4 py-2">USB-C, 2×USB-A, HDMI, 3.5 mm audio jack</td>
+              </tr>
+              <tr class="border-t">
+                <th class="px-4 py-2 font-medium">Weight</th>
+                <td class="px-4 py-2">1.2 kg</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Long Description / Features List -->
+        <div class="mt-8">
+          <h2 class="text-xl font-semibold text-gray-800 mb-3">Features</h2>
+          <ul class="list-disc list-inside space-y-1 text-gray-700">
+            <li>Lightweight chassis for portability</li>
+            <li>Full HD IPS display with anti-glare coating</li>
+            <li>Fast boot & silent operation thanks to SSD</li>
+            <li>Built-in dual-band Wi-Fi 5 and Bluetooth 5.0</li>
+            <li>Windows 11 Home (64-bit) preinstalled</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- RELATED PRODUCTS (Optional) -->
+    <div class="mt-16">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">You May Also Like</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Example: link to another low-performance PC -->
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col">
+          <img src="images/low-perf-2.jpg" alt="Everyday Desktop" class="w-full h-48 object-cover" />
+          <div class="p-4 flex-1 flex flex-col">
+            <h3 class="font-semibold text-lg mb-2">Everyday Desktop</h3>
+            <p class="text-gray-600 flex-1">AMD Athlon • 8 GB RAM • 256 GB SSD</p>
+            <div class="mt-4">
+              <span class="text-lg font-bold text-blue-600">$349</span>
+            </div>
+            <a href="everyday-desktop.html"
+               class="mt-4 bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition text-center block">
+              View Details
+            </a>
+          </div>
+        </div>
+
+        <!-- Example: another -->
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col">
+          <img src="images/medium-perf-1.jpg" alt="WorkStation X2" class="w-full h-48 object-cover" />
+          <div class="p-4 flex-1 flex flex-col">
+            <h3 class="font-semibold text-lg mb-2">WorkStation X2</h3>
+            <p class="text-gray-600 flex-1">Intel i5-12400F • 16 GB RAM • GTX 1650</p>
+            <div class="mt-4">
+              <span class="text-lg font-bold text-blue-600">$799</span>
+            </div>
+            <a href="workstation-x2.html"
+               class="mt-4 bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition text-center block">
+              View Details
+            </a>
+          </div>
+        </div>
+
+        <!-- You can add more related items similarly -->
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER (same as index.html) -->
+  <footer class="bg-gray-800 text-gray-300 py-8">
+    <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div>
+        <h4 class="font-semibold mb-2">ComputeZone</h4>
+        <p class="text-sm">© 2025 ComputeZone. All rights reserved.</p>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-2">Quick Links</h4>
+        <ul class="space-y-1 text-sm">
+          <li><a href="index.html#low-performance" class="hover:text-white transition">Low Performance</a></li>
+          <li><a href="index.html#medium-performance" class="hover:text-white transition">Medium Performance</a></li>
+          <li><a href="index.html#high-performance" class="hover:text-white transition">High Performance</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-2">Contact Us</h4>
+        <p class="text-sm">support@computezone.example</p>
+        <p class="text-sm">+1 (555) 123-4567</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mobile Menu Toggle Script -->
+  <script>
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Optional: Thumbnail‐to‐Main‐Image swap logic
+    document.querySelectorAll('.space-y-4 img').forEach((thumb) => {
+      thumb.addEventListener('click', () => {
+        const mainImg = document.querySelector('.space-y-4 > img:first-of-type');
+        mainImg.src = thumb.src;
+      });
+    });
+  </script>
+</body>
+</html>

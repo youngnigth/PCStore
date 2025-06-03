@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ComputeZone Store</title>
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- (Optional) Your custom overrides -->
+  <link rel="stylesheet" href="css/custom.css" />
+</head>
+<body class="bg-gray-50 text-gray-800 relative">
+
+  <!-- CART SIDEBAR (hidden by default) -->
+  <div id="cart-sidebar"
+       class="fixed top-0 right-0 h-full w-80 max-w-full transform translate-x-full transition-transform duration-300 bg-white shadow-lg z-50 flex flex-col">
+    <!-- Sidebar Header -->
+    <div class="flex items-center justify-between px-4 py-4 border-b">
+      <h2 class="text-xl font-semibold">Your Cart</h2>
+      <button id="close-cart-btn" class="text-gray-600 hover:text-gray-900 focus:outline-none">
+        <!-- “X” icon -->
+        <svg xmlns="http://www.w3.org/2000/svg"
+             class="h-6 w-6"
+             fill="none"
+             viewBox="0 0 24 24"
+             stroke="currentColor">
+          <path stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Cart Contents -->
+    <div id="cart-items-container" class="flex-1 overflow-y-auto p-4">
+      <!-- JS will inject individual cart-item rows here -->
+      <p id="empty-cart-msg" class="text-gray-600 text-center mt-8">
+        Your cart is empty.
+      </p>
+    </div>
+
+    <!-- Cart Footer: Total + Checkout -->
+    <div class="border-t px-4 py-4">
+      <div class="flex items-center justify-between mb-4">
+        <span class="text-lg font-medium">Total:</span>
+        <span id="cart-total" class="text-xl font-bold text-blue-600">$0.00</span>
+      </div>
+      <button id="checkout-btn"
+              class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
+              disabled>
+        Checkout
+      </button>
+    </div>
+  </div>
+  <!-- /CART SIDEBAR -->
+
+
+  <!-- NAVBAR -->
+  <header class="bg-white shadow-md sticky top-0 z-40">
+    <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+      <a href="#" class="text-2xl font-bold text-gray-900">ComputeZone</a>
+
+      <!-- Desktop Menu Links -->
+      <nav class="hidden md:flex space-x-6 text-gray-700">
+        <a href="#low-performance" class="hover:text-gray-900 transition">Low Performance</a>
+        <a href="#medium-performance" class="hover:text-gray-900 transition">Medium Performance</a>
+        <a href="#high-performance" class="hover:text-gray-900 transition">High Performance</a>
+      </nav>
+
+      <div class="flex items-center space-x-4">
+        <!-- Cart Icon (always visible) -->
+        <button id="open-cart-btn" class="relative focus:outline-none">
+          <svg xmlns="http://www.w3.org/2000/svg"
+               class="h-6 w-6 text-gray-700 hover:text-gray-900 transition"
+               fill="none"
+               viewBox="0 0 24 24"
+               stroke="currentColor">
+            <path stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.3 6.5a1 1 0 001 1.2h12.6a1 1 0 001-1.2L17 13M7 13H5.4M17 13l1.4 6.5M9 21a1 1 0 11-2 0 1 1 0 012 0zm8 0a1 1 0 11-2 0 1 1 0 012 0z" />
+          </svg>
+          <!-- Badge -->
+          <span id="cart-count-badge"
+                class="absolute -top-1 -right-2 bg-red-600 text-white text-xs font-semibold rounded-full px-1.5">
+            0
+          </span>
+        </button>
+
+        <!-- Mobile Hamburger Button -->
+        <button id="mobile-menu-btn" class="md:hidden focus:outline-none">
+          <svg xmlns="http://www.w3.org/2000/svg"
+               class="h-6 w-6 text-gray-700"
+               fill="none"
+               viewBox="0 0 24 24"
+               stroke="currentColor">
+            <path stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile menu (hidden by default) -->
+    <div id="mobile-menu" class="md:hidden bg-white border-t border-gray-200 hidden">
+      <div class="flex flex-col px-4 py-3 space-y-2">
+        <a href="#low-performance" class="block py-1 hover:text-gray-900">Low Performance</a>
+        <a href="#medium-performance" class="block py-1 hover:text-gray-900">Medium Performance</a>
+        <a href="#high-performance" class="block py-1 hover:text-gray-900">High Performance</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="bg-gradient-to-r from-blue-600 to-cyan-500 text-white">
+    <div class="container mx-auto px-4 py-20 flex flex-col items-center text-center">
+      <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Find Your Perfect PC</h1>
+      <p class="mb-8 max-w-2xl">
+        Whether you need basic computing power, balanced performance, or top-tier gaming/rendering, we have you covered.
+      </p>
+      <a href="#low-performance" class="bg-white text-blue-600 font-semibold px-6 py-3 rounded-lg shadow hover:bg-gray-100 transition">
+        Shop Now
+      </a>
+    </div>
+  </section>
+
+  <!-- CATEGORY: Low Performance -->
+  <section id="low-performance" class="container mx-auto px-4 py-16">
+    <h2 class="text-3xl font-bold text-gray-800 mb-6">Low Performance PCs</h2>
+    <p class="mb-8 text-gray-600">
+      Ideal for everyday tasks: web browsing, streaming, document editing, and light multitasking.
+    </p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+      <!-- Product Card 1 -->
+      <div
+        class="product-card bg-white rounded-lg shadow-lg overflow-hidden flex flex-col transform hover:scale-105 transition cursor-pointer"
+        data-id="1"
+        data-name="Everyday Desktop"
+        data-price="299"
+        data-url="detail1.html"
+      >
+        <img src="one.jpg" alt="Low Perf PC 1" class="w-full h-48 object-cover" />
+        <div class="p-4 flex-1 flex flex-col">
+          <h3 class="font-semibold text-lg mb-2">Everyday Desktop</h3>
+          <p class="text-gray-600 flex-1">Intel Celeron, 4 GB RAM, 128 GB SSD</p>
+          <div class="mt-4 flex items-center justify-between">
+            <span class="text-xl font-bold text-blue-600">$299</span>
+            <button class="add-to-cart-btn bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition text-sm">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Card 2 -->
+      <div
+        class="product-card bg-white rounded-lg shadow-lg overflow-hidden flex flex-col transform hover:scale-105 transition cursor-pointer"
+        data-id="2"
+        data-name="Everyday Desktop Pro"
+        data-price="349"
+        data-url="product2.html"
+      >
+        <img src="images/low-perf-2.jpg" alt="Low Perf PC 2" class="w-full h-48 object-cover" />
+        <div class="p-4 flex-1 flex flex-col">
+          <h3 class="font-semibold text-lg mb-2">Everyday Desktop Pro</h3>
+          <p class="text-gray-600 flex-1">AMD Athlon, 8 GB RAM, 256 GB SSD</p>
+          <div class="mt-4 flex items-center justify-between">
+            <span class="text-xl font-bold text-blue-600">$349</span>
+            <button class="add-to-cart-btn bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition text-sm">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Card 3 -->
+      <div
+        class="product-card bg-white rounded-lg shadow-lg overflow-hidden flex flex-col transform hover:scale-105 transition cursor-pointer"
+        data-id="3"
+        data-name="Compact Mini PC"
+        data-price="249"
+        data-url="basicbook-pro-lite.html"
+      >
+        <img src="https://via.placeholder.com/400x300" alt="Low Perf PC 3" class="w-full h-48 object-cover" />
+        <div class="p-4 flex-1 flex flex-col">
+          <h3 class="font-semibold text-lg mb-2">Compact Mini PC</h3>
+          <p class="text-gray-600 flex-1">Intel Pentium, 4 GB RAM, 64 GB eMMC</p>
+          <div class="mt-4 flex items-center justify-between">
+            <span class="text-xl font-bold text-blue-600">$249</span>
+            <button class="add-to-cart-btn bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition text-sm">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CATEGORY: Medium Performance -->
+  <section id="medium-performance" class="bg-gray-100 py-16">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-gray-800 mb-6">Medium Performance PCs</h2>
+      <p class="mb-8 text-gray-600">
+        Balanced setups for productivity, light gaming, and content creation.
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <!-- Product Card 1 -->
+        <div
+          class="product-card bg-white rounded-lg shadow-lg overflow-hidden flex flex-col transform hover:scale-105 transition cursor-pointer"
+          data-id="4"
+          data-name="WorkStation X2"
+          data-price="799"
+          data-url="media1.html"
+        >
+          <img src="images/medium-perf-1.jpg" alt="Medium Perf PC 1" class="w-full h-48 object-cover" />
+          <div class="p-4 flex-1 flex flex-col">
+            <h3 class="font-semibold text-lg mb-2">WorkStation X2</h3>
+            <p class="text-gray-600 flex-1">Intel i5-12400F, 16 GB RAM, 512 GB SSD, GTX 1650</p>
+            <div class="mt-4 flex items-center justify-between">
+              <span class="text-xl font-bold text-blue-600">$799</span>
+              <button class="add-to-cart-btn bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition text-sm">
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product Card 2 -->
+        <div
+          class="product-card bg-white rounded-lg shadow-lg overflow-hidden flex flex-col transform hover:scale-105 transition cursor-pointer"
+          data-id="5"
+          data-name="Creator’s Choice"
+          data-price="899"
+          data-url="media2.html"
+        >
+          <img src="images/medium-perf-2.jpg" alt="Medium Perf PC 2" class="w-full h-48 object-cover" />
+          <div class="p-4 flex-1 flex flex-col">
+            <h3 class="font-semibold text-lg mb-2">Creator’s Choice</h3>
+            <p class="text-gray-600 flex-1">AMD Ryzen 5 5600X, 16 GB RAM, 1 TB NVMe SSD</p>
+            <div class="mt-4 flex items-center justify-between">
+              <span class="text-xl font-bold text-blue-600">$899</span>
+              <button class="add-to-cart-btn bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition text-sm">
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product Card 3 -->
+        <div
+          class="product-card bg-white rounded-lg shadow-lg overflow-hidden flex flex-col transform hover:scale-105 transition cursor-pointer"
+          data-id="6"
+          data-name="Gaming All-Rounder"
+          data-price="1099"
+          data-url="media3.html"
+        >
+          <img src="https://via.placeholder.com/400x300" alt="Medium Perf PC 3" class="w-full h-48 object-cover" />
+          <div class="p-4 flex-1 flex flex-col">
+            <h3 class="font-semibold text-lg mb-2">Gaming All-Rounder</h3>
+            <p class="text-gray-600 flex-1">Intel i5 13400F, 16 GB RAM, RTX 3060, 512 GB SSD</p>
+            <div class="mt-4 flex items-center justify-between">
+              <span class="text-xl font-bold text-blue-600">$1,099</span>
+              <button class="add-to-cart-btn bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition text-sm">
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CATEGORY: High Performance -->
+  <section id="high-performance" class="container mx-auto px-4 py-16">
+    <h2 class="text-3xl font-bold text-gray-800 mb-6">High Performance PCs</h2>
+    <p class="mb-8 text-gray-600">
+      Top-tier machines for heavy gaming, 3D rendering, software development, and intense workloads.
+    </p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+      <!-- Product Card 1 -->
+      <div
+        class="product-card bg-white rounded-lg shadow-lg overflow-hidden flex flex-col transform hover:scale-105 transition cursor-pointer"
+        data-id="7"
+        data-name="Titanium Beast"
+        data-price="2999"
+        data-url="high1.html"
+      >
+        <img src="images/high-perf-1.jpg" alt="High Perf PC 1" class="w-full h-48 object-cover" />
+        <div class="p-4 flex-1 flex flex-col">
+          <h3 class="font-semibold text-lg mb-2">Titanium Beast</h3>
+          <p class="text-gray-600 flex-1">Intel i9 13900K, 32 GB RAM, RTX 4090, 2 TB NVMe</p>
+          <div class="mt-4 flex items-center justify-between">
+            <span class="text-xl font-bold text-blue-600">$2,999</span>
+            <button class="add-to-cart-btn bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition text-sm">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Card 2 -->
+      <div
+        class="product-card bg-white rounded-lg shadow-lg overflow-hidden flex flex-col transform hover:scale-105 transition cursor-pointer"
+        data-id="8"
+        data-name="Creator’s Ultimate"
+        data-price="2799"
+        data-url="high2.html"
+      >
+        <img src="images/high-perf-2.jpg" alt="High Perf PC 2" class="w-full h-48 object-cover" />
+        <div class="p-4 flex-1 flex flex-col">
+          <h3 class="font-semibold text-lg mb-2">Creator’s Ultimate</h3>
+          <p class="text-gray-600 flex-1">AMD Ryzen 9 7950X, 64 GB RAM, RTX 4080, 2 TB NVMe</p>
+          <div class="mt-4 flex items-center justify-between">
+            <span class="text-xl font-bold text-blue-600">$2,799</span>
+            <button class="add-to-cart-btn bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition text-sm">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Card 3 -->
+      <div
+        class="product-card bg-white rounded-lg shadow-lg overflow-hidden flex flex-col transform hover:scale-105 transition cursor-pointer"
+        data-id="9"
+        data-name="Gaming Overlord"
+        data-price="3499"
+        data-url="high3.html"
+      >
+        <img src="https://via.placeholder.com/400x300" alt="High Perf PC 3" class="w-full h-48 object-cover" />
+        <div class="p-4 flex-1 flex flex-col">
+          <h3 class="font-semibold text-lg mb-2">Gaming Overlord</h3>
+          <p class="text-gray-600 flex-1">Intel i9 14900K, 64 GB RAM, RTX 4090 Ti, 4 TB NVMe</p>
+          <div class="mt-4 flex items-center justify-between">
+            <span class="text-xl font-bold text-blue-600">$3,499</span>
+            <button class="add-to-cart-btn bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition text-sm">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-gray-800 text-gray-300 py-8">
+    <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div>
+        <h4 class="font-semibold mb-2">ComputeZone</h4>
+        <p class="text-sm">© 2025 ComputeZone. All rights reserved.</p>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-2">Quick Links</h4>
+        <ul class="space-y-1 text-sm">
+          <li><a href="#low-performance" class="hover:text-white transition">Low Performance</a></li>
+          <li><a href="#medium-performance" class="hover:text-white transition">Medium Performance</a></li>
+          <li><a href="#high-performance" class="hover:text-white transition">High Performance</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-2">Contact Us</h4>
+        <p class="text-sm">support@computezone.example</p>
+        <p class="text-sm">+1 (555) 123-4567</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =========================
+       Scripts (at bottom)
+       ========================= -->
+  <script>
+    // MOBILE MENU TOGGLE
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // CART LOGIC
+    const openCartBtn = document.getElementById('open-cart-btn');
+    const closeCartBtn = document.getElementById('close-cart-btn');
+    const cartSidebar = document.getElementById('cart-sidebar');
+    const cartCountBadge = document.getElementById('cart-count-badge');
+    const cartItemsContainer = document.getElementById('cart-items-container');
+    const emptyCartMsg = document.getElementById('empty-cart-msg');
+    const cartTotalEl = document.getElementById('cart-total');
+    const checkoutBtn = document.getElementById('checkout-btn');
+
+    // Retrieve existing cart from localStorage or start with empty array
+    let cart = JSON.parse(localStorage.getItem('computezone_cart')) || [];
+
+    // UTILITY: Save cart to localStorage and update badge
+    function saveCart() {
+      localStorage.setItem('computezone_cart', JSON.stringify(cart));
+      updateCartBadge();
+    }
+
+    // UTILITY: Update cart badge (sum of all quantities)
+    function updateCartBadge() {
+      const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+      cartCountBadge.textContent = totalCount;
+      if (totalCount === 0) {
+        cartCountBadge.classList.add('hidden');
+      } else {
+        cartCountBadge.classList.remove('hidden');
+      }
+    }
+
+    // RENDER: Show cart items in sidebar
+    function renderCartItems() {
+      cartItemsContainer.innerHTML = ''; // clear
+      if (cart.length === 0) {
+        emptyCartMsg.classList.remove('hidden');
+        checkoutBtn.setAttribute('disabled', true);
+        cartTotalEl.textContent = '$0.00';
+        return;
+      }
+      emptyCartMsg.classList.add('hidden');
+      checkoutBtn.removeAttribute('disabled');
+
+      let totalPrice = 0;
+      cart.forEach(item => {
+        totalPrice += item.price * item.quantity;
+
+        // create a row for each cart item
+        const row = document.createElement('div');
+        row.className = 'flex items-center justify-between mb-4';
+
+        // Left: name + qty
+        const left = document.createElement('div');
+        left.className = 'text-gray-800';
+        left.innerHTML = `
+          <p class="font-medium">${item.name}</p>
+          <p class="text-sm text-gray-600">Qty: ${item.quantity}</p>
+        `;
+
+        // Right: price + remove button
+        const right = document.createElement('div');
+        right.className = 'flex items-center space-x-2';
+
+        const priceEl = document.createElement('span');
+        priceEl.className = 'font-semibold text-blue-600';
+        priceEl.textContent = `$${(item.price * item.quantity).toFixed(2)}`;
+
+        const removeBtn = document.createElement('button');
+        removeBtn.className = 'text-red-600 hover:text-red-800 text-sm focus:outline-none';
+        removeBtn.textContent = 'Remove';
+        removeBtn.addEventListener('click', () => {
+          removeFromCart(item.id);
+        });
+
+        right.append(priceEl, removeBtn);
+        row.append(left, right);
+        cartItemsContainer.appendChild(row);
+      });
+
+      cartTotalEl.textContent = `$${totalPrice.toFixed(2)}`;
+    }
+
+    // ADD to cart (or increment qty if already exists)
+    function addToCart(id, name, price) {
+      const existing = cart.find(item => item.id === id);
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        cart.push({ id, name, price, quantity: 1 });
+      }
+      saveCart();
+      renderCartItems();
+    }
+
+    // REMOVE from cart (completely)
+    function removeFromCart(id) {
+      cart = cart.filter(item => item.id !== id);
+      saveCart();
+      renderCartItems();
+    }
+
+    // OPEN / CLOSE cart sidebar
+    openCartBtn.addEventListener('click', () => {
+      cartSidebar.classList.remove('translate-x-full');
+      cartSidebar.classList.add('translate-x-0');
+      renderCartItems();
+    });
+    closeCartBtn.addEventListener('click', () => {
+      cartSidebar.classList.remove('translate-x-0');
+      cartSidebar.classList.add('translate-x-full');
+    });
+
+    // HANDLE “Add to Cart” buttons
+    document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+      btn.addEventListener('click', event => {
+        // Prevent the parent .product-card click from triggering navigation
+        event.stopPropagation();
+
+        const card = event.target.closest('.product-card');
+        const id = card.getAttribute('data-id');
+        const name = card.getAttribute('data-name');
+        const price = parseFloat(card.getAttribute('data-price'));
+
+        addToCart(id, name, price);
+      });
+    });
+
+    // HANDLE click on entire product card → navigate to detail page
+    document.querySelectorAll('.product-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const targetUrl = card.getAttribute('data-url');
+        if (targetUrl) {
+          window.location.href = targetUrl;
+        }
+      });
+    });
+
+    // INITIALIZE badge + cart on page load
+    updateCartBadge();
+    renderCartItems();
+
+    // (Optional) Checkout button logic
+    checkoutBtn.addEventListener('click', () => {
+      alert('Proceeding to checkout is not yet implemented.');
+      // Here you’d redirect to a checkout page or integrate Stripe, etc.
+    });
+  </script>
+</body>
+</html>
